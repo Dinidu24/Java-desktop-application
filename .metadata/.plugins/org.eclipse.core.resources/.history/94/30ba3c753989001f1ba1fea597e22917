@@ -1,0 +1,152 @@
+package ui;
+
+import java.awt.EventQueue;
+import classes.Menu;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
+public class AddNewMenu extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private ManageMenu mm;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManageMenu mm=new ManageMenu();
+					AddNewMenu frame = new AddNewMenu(mm);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AddNewMenu(ManageMenu mm) {
+		setTitle("AddNewMenu");
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 590, 372);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("     SunRise Hotels");
+		lblNewLabel_2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 30));
+		lblNewLabel_2.setBounds(212, 25, 226, 81);
+		contentPane.add(lblNewLabel_2);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(10, 24, 175, 287);
+		contentPane.add(panel);
+		
+		JLabel lblNewLabel_1 = new JLabel("   menuId");
+		panel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("    itemName");
+		panel.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		panel.add(textField_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("    category");
+		panel.add(lblNewLabel_1_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		panel.add(textField_2);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel(" price");
+		panel.add(lblNewLabel_1_1_1_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setColumns(10);
+		panel.add(textField_3);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("description");
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		panel.add(textField_4);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("status");
+		panel.add(lblNewLabel_1_1_1_1_1_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		panel.add(textField_5);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("   calories");
+		panel.add(lblNewLabel_1_1_1_1_1_1_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		panel.add(textField_6);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_2 = new JLabel("       dateAdded");
+		panel.add(lblNewLabel_1_1_1_1_1_1_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		panel.add(textField_7);
+		
+		JButton btnAddNewMenu = new JButton("Add New Menu");
+		btnAddNewMenu.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu m=new Menu(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),textField_4.getText(),textField_5.getText(),textField_6.getText(),textField_7.getText());
+				m.addMenu();
+				mm.jTableFill();
+				resetForm();
+			}
+			private void resetForm() {
+				textField.setText("");
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+			}
+		});
+		panel.add(btnAddNewMenu);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ASUS\\Desktop\\SunRise_Hotel\\sunRise_Hotel\\src\\images\\image4.jpg"));
+		lblNewLabel.setBounds(0, 0, 576, 335);
+		contentPane.add(lblNewLabel);
+	}
+
+}

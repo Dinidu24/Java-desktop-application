@@ -1,0 +1,9 @@
+/**
+ * 
+ */
+/**
+ * 
+ */
+module sunRise_Hotel {
+	requires java.desktop;
+}

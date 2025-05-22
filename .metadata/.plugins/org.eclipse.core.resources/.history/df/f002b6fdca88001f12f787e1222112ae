@@ -1,0 +1,86 @@
+package classes;
+
+import java.sql.*;
+import classes.DbConnector;
+public class Room {
+	private String roomNo;
+	private String floor;
+	private String block;
+	private String category;
+	private String status;
+	private String ac;
+	private String roomphone;
+	private String guestId;
+	private Connection con;
+	
+	public Room() {
+		// TODO Auto-generated constructor stub
+		con = new DbConnector().getConnection();
+	}
+
+	
+	public Room(String roomNo, String floor, String block, String category, String status, String ac, String roomphone,
+			String guestId) {
+		super();
+		this.roomNo = roomNo;
+		this.floor = floor;
+		this.block = block;
+		this.category = category;
+		this.status = status;
+		this.ac = ac;
+		this.roomphone = roomphone;
+		this.guestId = guestId;
+		con=new DbConnector().getConnection();
+	}
+
+
+	public void setRoomNo(String staffId) {
+		this.roomNo = roomNo;
+	}
+	
+	public void addRoom() {
+		try {
+			String query="INSERT INTO room VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, roomNo);
+			pstmt.setString(2, floor);
+			pstmt.setString(3, block);
+			pstmt.setString(4, position);
+			pstmt.setString(5, location);
+			pstmt.setString(6, address);
+			pstmt.setString(7, phone);
+			pstmt.setString(8, nic);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void updateStaff() {
+    	try {
+			String query="UPDATE staff SET name=?,email=?,position=?,location=?,address=?,phone=?,nic=? WHERE staffId=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			pstmt.setString(3, position);
+			pstmt.setString(4, location);
+			pstmt.setString(5, address);
+			pstmt.setString(6, phone);
+			pstmt.setString(7, nic);
+			pstmt.setString(8, staffId);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void deleteStaff() {
+    	try {
+			String query="DELETE FROM staff WHERE staffId=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, staffId);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+	
+}

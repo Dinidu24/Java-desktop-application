@@ -1,0 +1,86 @@
+package classes;
+
+import java.sql.*;
+import classes.DbConnector;
+public class Room {
+	private String roomNo;
+	private String floor;
+	private String block;
+	private String category;
+	private String status;
+	private String ac;
+	private String roomphone;
+	private String nuOfBeds;
+	private Connection con;
+	
+	public Room() {
+		// TODO Auto-generated constructor stub
+		con = new DbConnector().getConnection();
+	}
+
+	
+	public Room(String roomNo, String floor, String block, String category, String status, String ac, String roomphone,
+			String nuOfBeds) {
+		super();
+		this.roomNo = roomNo;
+		this.floor = floor;
+		this.block = block;
+		this.category = category;
+		this.status = status;
+		this.ac = ac;
+		this.roomphone = roomphone;
+		this.nuOfBeds = nuOfBeds;
+		con=new DbConnector().getConnection();
+	}
+
+
+	public void setRoomNo(String roomNo) {
+		this.roomNo = roomNo;
+	}
+	
+	public void addRoom() {
+		try {
+			String query="INSERT INTO room VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, roomNo);
+			pstmt.setString(2, floor);
+			pstmt.setString(3, block);
+			pstmt.setString(4, category);
+			pstmt.setString(5, status);
+			pstmt.setString(6, ac);
+			pstmt.setString(7, roomphone);
+			pstmt.setString(8, nuOfBeds);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void updateRoom() {
+    	try {
+			String query="UPDATE room SET floor=?,block=?,category=?,status=?, ac=?, roomphone=? WHERE roomNo=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, floor);
+			pstmt.setString(2, block);
+			pstmt.setString(3, category);
+			pstmt.setString(4, status);
+			pstmt.setString(5, ac);
+			pstmt.setString(6, roomphone);
+			pstmt.setString(7, nuOfBeds);
+			pstmt.setString(8, roomNo);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void deleteRoom() {
+    	try {
+			String query="DELETE FROM room WHERE roomNo=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, roomNo);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+	
+}

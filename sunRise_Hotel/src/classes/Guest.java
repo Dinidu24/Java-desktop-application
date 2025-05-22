@@ -1,0 +1,162 @@
+package classes;
+
+import java.sql.*;
+import classes.DbConnector;
+public class Guest {
+	private String guestId;
+	private String name;
+	private String email;
+	private String phone;
+	private String age;
+	private String gender;
+	private String mealType;
+	private String profession;
+	private Connection con;
+	
+	public Guest() {
+		// TODO Auto-generated constructor stub
+		con = new DbConnector().getConnection();
+	}
+
+	
+	public Guest(String guestId, String name, String email, String phone, String age, String gender, String mealType,
+			String profession) {
+		super();
+		this.guestId = guestId;
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+		this.age = age;
+		this.gender = gender;
+		this.mealType = mealType;
+		this.profession = profession;
+		con = new DbConnector().getConnection();
+	}
+
+
+	public void setGuestId(String guestId) {
+		this.guestId = guestId;
+	}
+	
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public String getAge() {
+		return age;
+	}
+
+
+	public void setAge(String age) {
+		this.age = age;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+
+	public String getMealType() {
+		return mealType;
+	}
+
+
+	public void setMealType(String mealType) {
+		this.mealType = mealType;
+	}
+
+
+	public String getProfession() {
+		return profession;
+	}
+
+
+	public void setProfession(String profession) {
+		this.profession = profession;
+	}
+
+
+	public String getGuestId() {
+		return guestId;
+	}
+
+
+	public void addGuest() {
+		try {
+			String query="INSERT INTO guest VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, guestId);
+			pstmt.setString(2, name);
+			pstmt.setString(3, email);
+			pstmt.setString(4, phone);
+			pstmt.setString(5, age);
+			pstmt.setString(6, gender);
+			pstmt.setString(7, mealType);
+			pstmt.setString(8, profession);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void updateGuest() {
+    	try {
+			String query="UPDATE guest SET name=?,email=?,phone=?,age=?,gender=?,mealType=?,profession=? WHERE guestId=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, name);
+			pstmt.setString(2, email);
+			pstmt.setString(3, phone);
+			pstmt.setString(4, age);
+			pstmt.setString(5, gender);
+			pstmt.setString(6, mealType);
+			pstmt.setString(7, profession);
+			pstmt.setString(8, guestId);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+    public void deleteGuest() {
+    	try {
+			String query="DELETE FROM guest WHERE guestId=?";
+			PreparedStatement pstmt=con.prepareStatement(query);
+			pstmt.setString(1, guestId);
+			pstmt.executeUpdate();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+    }
+	
+}

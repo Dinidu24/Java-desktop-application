@@ -1,0 +1,264 @@
+package ui;
+
+import java.awt.EventQueue;
+import java.sql.*;
+import classes.DbConnector;
+import classes.Menu;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+public class ManageMenu extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		//Using thread for managing swing components(related to GUI problems)
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManageMenu frame = new ManageMenu();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					/*
+					 InstantiationException
+					IllegalAccessException
+					InvocationTargetException
+					ClassCastException
+					NoSuchMethodException
+					RuntimeException (and its subclasses)
+					AWTException
+					 */
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ManageMenu() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1011, 573);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(260, 120, 711, 406);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				/////////////
+				int selectedRow = table.getSelectedRow();
+                DefaultTableModel model = (DefaultTableModel) table.getModel();
+                textField.setText(model.getValueAt(selectedRow, 0).toString());
+                textField_1.setText(model.getValueAt(selectedRow, 1).toString());
+                textField_2.setText(model.getValueAt(selectedRow, 2).toString());
+                textField_3.setText(model.getValueAt(selectedRow, 3).toString());
+                textField_4.setText(model.getValueAt(selectedRow, 4).toString());
+                textField_5.setText(model.getValueAt(selectedRow, 5).toString());
+                textField_6.setText(model.getValueAt(selectedRow, 6).toString());
+                textField_7.setText(model.getValueAt(selectedRow, 7).toString());
+                /////////////////
+			}
+		});
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"menuId", "itemName", "category", "price", "description", "status", "calories", "dateAdded"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JButton btnNewButton_1 = new JButton("Add New Menu");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AddNewMenu(ManageMenu.this).setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(250, 89, 158, 21);
+		contentPane.add(btnNewButton_1);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 255, 255));
+		panel.setBounds(10, 116, 190, 335);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("   menuId");
+		lblNewLabel_1.setBounds(10, 27, 72, 13);
+		panel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(79, 24, 96, 19);
+		textField.setEditable(false);
+		textField.setColumns(10);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("    itemName");
+		lblNewLabel_1_1.setBounds(3, 53, 79, 13);
+		panel.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(79, 50, 96, 19);
+		textField_1.setColumns(10);
+		panel.add(textField_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("    category");
+		lblNewLabel_1_1_1.setBounds(3, 82, 79, 13);
+		panel.add(lblNewLabel_1_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(79, 79, 96, 19);
+		textField_2.setColumns(10);
+		panel.add(textField_2);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel(" price");
+		lblNewLabel_1_1_1_1.setBounds(10, 111, 59, 13);
+		panel.add(lblNewLabel_1_1_1_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(79, 108, 96, 19);
+		textField_3.setColumns(10);
+		panel.add(textField_3);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("description");
+		lblNewLabel_1_1_1_1_1.setBounds(10, 140, 79, 13);
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(79, 137, 96, 19);
+		textField_4.setColumns(10);
+		panel.add(textField_4);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("status");
+		lblNewLabel_1_1_1_1_1_1.setBounds(10, 179, 59, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(79, 176, 96, 19);
+		textField_5.setColumns(10);
+		panel.add(textField_5);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("   calories");
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(10, 208, 69, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(79, 205, 96, 19);
+		textField_6.setColumns(10);
+		panel.add(textField_6);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_2 = new JLabel("       dateAdded");
+		lblNewLabel_1_1_1_1_1_1_2.setBounds(-17, 247, 96, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(79, 244, 96, 19);
+		textField_7.setColumns(10);
+		panel.add(textField_7);
+		
+		JButton btnNewButton = new JButton("Delete Menu");
+		btnNewButton.setBounds(14, 270, 144, 21);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu sk=new Menu();
+				sk.setMenuId(textField.getText());
+				sk.deleteMenu();
+				jTableFill();
+			}
+		});
+		panel.add(btnNewButton);
+		
+		JButton btnUpdateStaffMember = new JButton("Update Menu");
+		btnUpdateStaffMember.setBounds(14, 304, 144, 21);
+		btnUpdateStaffMember.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Menu m=new Menu(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),textField_4.getText(),textField_5.getText(),textField_6.getText(),textField_7.getText());
+				m.updateMenu();
+				jTableFill();
+			}
+		});
+		panel.add(btnUpdateStaffMember);
+		
+		JLabel lblNewLabel_2 = new JLabel("     SunRise Hotels");
+		lblNewLabel_2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 89));
+		lblNewLabel_2.setBounds(182, 0, 705, 81);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ASUS\\Desktop\\SunRise_Hotel\\sunRise_Hotel\\src\\images\\image3.jpg"));
+		lblNewLabel.setBounds(0, 0, 1007, 536);
+		contentPane.add(lblNewLabel);
+	}
+	////////////////
+	public void jTableFill() {
+		try {
+			Connection con = DbConnector.getConnection();
+			String query = "SELECT * FROM menu";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+			dtm.setRowCount(0);  // Clear the existing rows
+
+			while (rs.next()) {
+				String[] rowData = {
+				rs.getString("menuId"),
+				rs.getString("itemName"),
+    			rs.getString("category"),
+    			rs.getString("price"),
+    			rs.getString("description"),
+    			rs.getString("status"),
+    			rs.getString("calories"),
+    			rs.getString("dateAdded")
+				};
+				dtm.addRow(rowData);  // Add rows to the table
+			}
+		} catch (Exception ex) {
+			 /*
+		    SQLException
+			NullPointerException
+			ClassCastException
+			ArrayIndexOutOfBoundsException
+			IllegalArgumentException
+		  */
+			ex.printStackTrace();
+		}
+	}
+	/////////////
+}

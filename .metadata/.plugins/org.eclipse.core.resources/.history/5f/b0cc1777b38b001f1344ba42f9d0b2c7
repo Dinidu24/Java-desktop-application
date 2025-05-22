@@ -1,0 +1,255 @@
+package ui;
+
+import java.awt.EventQueue;
+import java.sql.*;
+import classes.DbConnector;
+import classes.Guest;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Font;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+public class ManageGuest extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTable table;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManageGuest frame = new ManageGuest();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ManageGuest() {
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 1008, 622);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JButton btnNewButton_1 = new JButton("Add New Guest");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new AddNewGuest(ManageGuest.this).setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(257, 126, 158, 21);
+		contentPane.add(btnNewButton_1);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(257, 154, 727, 421);
+		contentPane.add(scrollPane);
+		
+		table = new JTable();
+		table.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+					/////////////
+					int selectedRow = table.getSelectedRow();
+	                DefaultTableModel model = (DefaultTableModel) table.getModel();
+	                textField.setText(model.getValueAt(selectedRow, 0).toString());
+	                textField_1.setText(model.getValueAt(selectedRow, 1).toString());
+	                textField_2.setText(model.getValueAt(selectedRow, 2).toString());
+	                textField_3.setText(model.getValueAt(selectedRow, 3).toString());
+	                textField_4.setText(model.getValueAt(selectedRow, 4).toString());
+	                textField_5.setText(model.getValueAt(selectedRow, 5).toString());
+	                textField_6.setText(model.getValueAt(selectedRow, 6).toString());
+	                textField_7.setText(model.getValueAt(selectedRow, 7).toString());
+	                /////////////////
+			}
+		});
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+				"guestId", "name", "email", "phone", "age", "gender", "mealType", "profession"
+			}
+		));
+		scrollPane.setViewportView(table);
+		
+		JLabel lblNewLabel_2 = new JLabel("     SunRise Hotels");
+		lblNewLabel_2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 89));
+		lblNewLabel_2.setBounds(159, 10, 705, 81);
+		contentPane.add(lblNewLabel_2);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 255, 255));
+		panel.setBounds(45, 201, 190, 335);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("   guestId");
+		lblNewLabel_1.setBounds(0, 11, 61, 13);
+		panel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(71, 8, 96, 19);
+		textField.setEditable(false);
+		textField.setColumns(10);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("    name");
+		lblNewLabel_1_1.setBounds(0, 48, 66, 13);
+		panel.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(71, 45, 96, 19);
+		textField_1.setColumns(10);
+		panel.add(textField_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("    email");
+		lblNewLabel_1_1_1.setBounds(0, 74, 61, 13);
+		panel.add(lblNewLabel_1_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(71, 71, 96, 19);
+		textField_2.setColumns(10);
+		panel.add(textField_2);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel(" phone");
+		lblNewLabel_1_1_1_1.setBounds(0, 103, 61, 13);
+		panel.add(lblNewLabel_1_1_1_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(71, 100, 96, 19);
+		textField_3.setColumns(10);
+		panel.add(textField_3);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("age");
+		lblNewLabel_1_1_1_1_1.setBounds(10, 132, 51, 13);
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(71, 129, 96, 19);
+		textField_4.setColumns(10);
+		panel.add(textField_4);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("gender");
+		lblNewLabel_1_1_1_1_1_1.setBounds(10, 161, 61, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(71, 158, 96, 19);
+		textField_5.setColumns(10);
+		panel.add(textField_5);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("   mealType");
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(0, 194, 82, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(71, 191, 96, 19);
+		textField_6.setColumns(10);
+		panel.add(textField_6);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_2 = new JLabel("       profesion");
+		lblNewLabel_1_1_1_1_1_1_2.setBounds(-4, 223, 82, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(71, 220, 96, 19);
+		textField_7.setColumns(10);
+		panel.add(textField_7);
+		
+		JButton btnNewButton = new JButton("Delete Guest");
+		btnNewButton.setBounds(0, 260, 153, 21);
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Guest sk=new Guest();
+				sk.setGuestId(textField.getText());
+				sk.deleteGuest();
+				jTableFill();
+			}
+		});
+		panel.add(btnNewButton);
+		
+		JButton btnUpdateStaffMember = new JButton("Update Guest");
+		btnUpdateStaffMember.setBounds(10, 291, 153, 21);
+		btnUpdateStaffMember.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Guest r=new Guest(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),textField_4.getText(),textField_5.getText(),textField_6.getText(),textField_7.getText());
+				r.updateGuest();
+				jTableFill();
+			}
+		});
+		panel.add(btnUpdateStaffMember);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ASUS\\Desktop\\SunRise_Hotel\\sunRise_Hotel\\src\\images\\image3.jpg"));
+		lblNewLabel.setBounds(0, 0, 1002, 591);
+		contentPane.add(lblNewLabel);
+	}
+	////////////////
+	public void jTableFill() {
+		try {
+			Connection con = DbConnector.getConnection();
+			String query = "SELECT * FROM guest";
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+
+			DefaultTableModel dtm = (DefaultTableModel) table.getModel();
+			dtm.setRowCount(0);  // Clear the existing rows
+
+			while (rs.next()) {
+				String[] rowData = {
+					rs.getString("guestId"),
+					rs.getString("name"),
+					rs.getString("email"),
+					rs.getString("phone"),
+					rs.getString("age"),
+					rs.getString("gender"),
+					rs.getString("mealType"),
+					rs.getString("profession")
+				};
+		dtm.addRow(rowData);  // Add rows to the table
+	}
+} catch (Exception ex) {
+	 /*
+    SQLException
+	NullPointerException
+	ClassCastException
+	ArrayIndexOutOfBoundsException
+	IllegalArgumentException
+  */
+	ex.printStackTrace();
+}
+}
+/////////////
+
+}

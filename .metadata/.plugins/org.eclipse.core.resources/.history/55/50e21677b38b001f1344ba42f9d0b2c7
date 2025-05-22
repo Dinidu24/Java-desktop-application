@@ -1,0 +1,199 @@
+package ui;
+
+import java.awt.EventQueue;
+import javax.swing.JOptionPane;
+import classes.Room;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+
+public class AddNewRoom extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private ManageRoom mr;
+	private JPanel contentPane;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					ManageRoom mr=new ManageRoom();
+					AddNewRoom frame = new AddNewRoom(mr);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public AddNewRoom(ManageRoom mr) {
+		this.mr=mr;
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 904, 511);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(0, 255, 0));
+		panel.setBounds(363, 103, 190, 335);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("   roomNo");
+		lblNewLabel_1.setBounds(0, 26, 76, 13);
+		panel.add(lblNewLabel_1);
+		
+		textField = new JTextField();
+		textField.setBounds(72, 23, 96, 19);
+		textField.setColumns(10);
+		panel.add(textField);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("    floor");
+		lblNewLabel_1_1.setBounds(0, 62, 76, 13);
+		panel.add(lblNewLabel_1_1);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(72, 59, 96, 19);
+		textField_1.setColumns(10);
+		panel.add(textField_1);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel("    block");
+		lblNewLabel_1_1_1.setBounds(0, 91, 78, 13);
+		panel.add(lblNewLabel_1_1_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(72, 88, 96, 19);
+		textField_2.setColumns(10);
+		panel.add(textField_2);
+		
+		JLabel lblNewLabel_1_1_1_1 = new JLabel(" category");
+		lblNewLabel_1_1_1_1.setBounds(0, 120, 76, 13);
+		panel.add(lblNewLabel_1_1_1_1);
+		
+		textField_3 = new JTextField();
+		textField_3.setBounds(72, 117, 96, 19);
+		textField_3.setColumns(10);
+		panel.add(textField_3);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("status");
+		lblNewLabel_1_1_1_1_1.setBounds(7, 162, 62, 13);
+		panel.add(lblNewLabel_1_1_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setBounds(72, 159, 96, 19);
+		textField_4.setColumns(10);
+		panel.add(textField_4);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("ac");
+		lblNewLabel_1_1_1_1_1_1.setBounds(7, 202, 45, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setBounds(72, 199, 96, 19);
+		textField_5.setColumns(10);
+		panel.add(textField_5);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("   roomphone");
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(-7, 231, 90, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_1);
+		
+		textField_6 = new JTextField();
+		textField_6.setBounds(72, 228, 96, 19);
+		textField_6.setColumns(10);
+		panel.add(textField_6);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_2 = new JLabel("       nuOfBeds");
+		lblNewLabel_1_1_1_1_1_1_2.setBounds(-14, 266, 97, 13);
+		panel.add(lblNewLabel_1_1_1_1_1_1_2);
+		
+		textField_7 = new JTextField();
+		textField_7.setBounds(72, 263, 96, 19);
+		textField_7.setColumns(10);
+		panel.add(textField_7);
+		
+		JButton btnAddNewRoom = new JButton("Add New Room");
+		btnAddNewRoom.setBounds(7, 304, 161, 21);
+		btnAddNewRoom.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/////////////
+				String roomNo = textField.getText();
+		        String nuOfBedsStr = textField_7.getText();
+		        int nuOfBeds;
+
+		        // Validate roomNo starts with "RN"
+		        if (!roomNo.startsWith("RN")) {
+		            // Show error message or prompt
+		            JOptionPane.showMessageDialog(null, "Room number must start with 'RN'.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+
+		        // Validate nuOfBeds is a positive number
+		        try {
+		            nuOfBeds = Integer.parseInt(nuOfBedsStr);
+		            if (nuOfBeds <= 0) {
+		                JOptionPane.showMessageDialog(null, "Number of beds must be greater than 0.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+		                return;
+		            }
+		        } catch (NumberFormatException ex) {
+		            // Show error message if input is not a number
+		            JOptionPane.showMessageDialog(null, "Number of beds must be a valid number.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
+		            return;
+		        }
+				/////////////
+				
+				Room r=new Room(textField.getText(),textField_1.getText(),textField_2.getText(),textField_3.getText(),textField_4.getText(),textField_5.getText(),textField_6.getText(),textField_7.getText());
+				r.addRoom();
+				mr.jTableFill();
+				resetForm();
+			}
+			private void resetForm() {
+				textField.setText("");
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+				textField_7.setText("");
+			}
+		});
+		panel.add(btnAddNewRoom);
+		
+		JLabel lblNewLabel_2 = new JLabel("     SunRise Hotels");
+		lblNewLabel_2.setFont(new Font("Monotype Corsiva", Font.PLAIN, 89));
+		lblNewLabel_2.setBounds(87, 10, 705, 81);
+		contentPane.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\ASUS\\Desktop\\SunRise_Hotel\\sunRise_Hotel\\src\\images\\image3.jpg"));
+		lblNewLabel.setBounds(0, 0, 908, 478);
+		contentPane.add(lblNewLabel);
+	}
+
+}
